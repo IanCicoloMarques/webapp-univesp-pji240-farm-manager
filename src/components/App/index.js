@@ -6,7 +6,18 @@ import NavHeader from "../NavHeader";
 import NavBar from "../NavBar";
 
 // PAGES
-import HtmlPuroPage from "../pages/PureHtmlExamplePage";
+import FirstPage from "../pages/FirstPage";
+import HtmlPuroPage from "../pages/PureHtmlPage";
+import HtmlVariablePage from "../pages/HtmlVariablePage";
+import ApiAxiosPage from "../pages/ApiAxiosPage";
+import GridMapPage from "../pages/GridMapPage";
+import DynamicHtmlPage from "../pages/DynamicHtmlPage";
+import ObjectComponentPage from "../pages/ObjectcComponentPage";
+import StyleCssPage from "../pages/StyleCssPage";
+import UiFrameworkPage from "../pages/UIFrameworkPage";
+import UseContextPage from "../pages/UseContextPage";
+import UseEffectPage from "../pages/UseEffectPage";
+import PropDrillingPage from "../pages/PropDrillingPage";
 
 import "./App.css";
 
@@ -46,12 +57,18 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/exemplo-html-puro" element={<HtmlPuroPage />} />
-          {/* <Route path="/customer-list/" element={ <CustomerSearchPage />} />
-          <Route path="/customer-register" element={ <CustomerRegisterPage /> } />
-          <Route path="/add-order" element={ <AddOrderPage /> } />
-          <Route path="/order-list" element={ <OrdersPage /> } />
-          <Route path="/next-delivery" element={ <NextDeliveryPage /> } /> */}
+          <Route path="/" element={<FirstPage />} />
+          <Route path="/html-puro" element={<HtmlPuroPage />} />
+          <Route path="/html-codigo" element={<HtmlVariablePage />} />
+          <Route path="/html-dinamico" element={<DynamicHtmlPage />} />
+          <Route path="/grid-map" element={<GridMapPage />} />
+          <Route path="/api-axios" element={<ApiAxiosPage />} />
+          <Route path="/components" element={<ObjectComponentPage />} />
+          <Route path="/style-css" element={<StyleCssPage />} />
+          <Route path="/prop-drilling" element={<PropDrillingPage />} />
+          <Route path="/use-effect" element={<UseEffectPage />} />
+          <Route path="/use-context" element={<UseContextPage />} />
+          <Route path="/ui-framework" element={<UiFrameworkPage />} />
         </Routes>
       </BrowserRouter>
     </div>
