@@ -53,7 +53,7 @@ export default function Product(props){
                 R${props.price}
                 </Typography>
             </CardContent>
-            <CardActions justifyContent="center">
+            <CardActions justifycontent="center">
                 <Button onClick={handleProductSubtract}>-</Button>
                 {counter}
                 <Button onClick={handleProductAdd}>+</Button>
