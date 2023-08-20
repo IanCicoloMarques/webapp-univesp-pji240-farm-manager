@@ -6,10 +6,13 @@
 ## Clonando o repositório
 1. Clone o repositório, na branch examples-how-to-use-react
 2. (Recomendado) Instale o [GitHub Desktop](https://desktop.github.com) para facilitar no version control
+   
    a. Vá em adicionar repositório
    ![image](https://github.com/IanCicoloMarques/webapp-univesp-pji240-farm-manager/assets/50027597/57b6f10b-74da-4153-8674-633cf2cc408c)
+   
    b. Coloque a URL do projeto: https://github.com/IanCicoloMarques/webapp-univesp-pji240-farm-manager/
    ![image](https://github.com/IanCicoloMarques/webapp-univesp-pji240-farm-manager/assets/50027597/22dc3216-0e8a-4cc2-8dd5-4e0ee8cee3b2)
+   
    c. Mude a Branch para a de exemplo:
    ![image](https://github.com/IanCicoloMarques/webapp-univesp-pji240-farm-manager/assets/50027597/14dcdbd7-81f1-4199-b5ad-46744bd8ed9c)
 
