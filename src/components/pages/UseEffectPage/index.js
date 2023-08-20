@@ -15,7 +15,7 @@ export default function UseEffectPage() {
     <>
       Em resumo do resumo: o useEffect te permite tanto fazer a atualização da
       página em mais situações do que a mudança de uma varíavel (useState),
-      quanto rodar outras funções quando for disparado
+      quanto rodar outras funções quando for disparado.
     </>
   );
 }

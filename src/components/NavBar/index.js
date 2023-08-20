@@ -20,8 +20,11 @@ export default function NavBar() {
       <button className="button" onClick={() => navigate("/html-dinamico")}>
         HTML Dinâmico e useState
       </button>
-      <button className="button" onClick={() => navigate("/grid-map")}>
+      <button className="button" onClick={() => navigate("/map")}>
         Iteração e Conteudo Escalonável
+      </button>
+      <button className="button" onClick={() => navigate("/grid")}>
+        Organização do Conteudo
       </button>
       <button className="button" onClick={() => navigate("/api-axios")}>
         APIs via Axios

@@ -1,4 +1,5 @@
-/* EXEMPlO#6
+/*
+EXEMPlO#6
 Vamos repetir o exato mesmo exemplo anterior. Mas desta vez,
 iremos utilizar o hook do react chamado useState.
 

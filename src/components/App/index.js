@@ -10,7 +10,8 @@ import FirstPage from "../pages/FirstPage";
 import HtmlPuroPage from "../pages/PureHtmlPage";
 import HtmlVariablePage from "../pages/HtmlVariablePage";
 import ApiAxiosPage from "../pages/ApiAxiosPage";
-import GridMapPage from "../pages/GridMapPage";
+import MapPage from "../pages/MapPage";
+import GridPage from "../pages/GridPage";
 import DynamicHtmlPage from "../pages/DynamicHtmlPage";
 import ObjectComponentPage from "../pages/ObjectcComponentPage";
 import StyleCssPage from "../pages/StyleCssPage";
@@ -61,7 +62,8 @@ function App() {
           <Route path="/html-puro" element={<HtmlPuroPage />} />
           <Route path="/html-codigo" element={<HtmlVariablePage />} />
           <Route path="/html-dinamico" element={<DynamicHtmlPage />} />
-          <Route path="/grid-map" element={<GridMapPage />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/grid" element={<GridPage />} />
           <Route path="/api-axios" element={<ApiAxiosPage />} />
           <Route path="/components" element={<ObjectComponentPage />} />
           <Route path="/style-css" element={<StyleCssPage />} />
