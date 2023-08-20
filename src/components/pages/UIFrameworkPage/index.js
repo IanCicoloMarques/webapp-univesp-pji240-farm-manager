@@ -15,19 +15,26 @@ Não tem problema usarmos mais de um, mas cada um deles costuma pesar no projeto
 Para comparação:
 PESO NO SEU COMPUTADOR
 Pasta Projeto (Ambiente de desenvolvimento), sem nenhum UI Framework:
-215MB
+235MB
 Pasta Projeto com Material UI:
-317MB
+278MB
 Pasta Projeto com MUI, Blueprint, Bootstrap, AntDesign, ChakraUI e SemanticUI:
-573MB
+400MB
 
 PESO NO SERVIDOR/VM
 Pasta Build (Ambiente de prodção/lançamento), apenas MUI:
 1.15MB
 Pasta build com todos os Frameworks, sem utilizar:
 1.46MB
+Pasta build com todos os frameworks, utilizando um card de exemplo de cada:
+10.3MB
 
-
+Como visto, cada componente usado aumenta o tamanho do projeto, mas não o suficiente para se
+tornar inutilizado.
+Abaixo, um exmeplo de cada, com o link para a documentação, para escolhermos o estilo
+e qual utilizar.
+Mesmo escolhendo um, podemos instalar os outros fonrome a necessidade, visto que o projeto
+não é muito grande.
 */
 
 //MUI
@@ -268,7 +275,6 @@ const SemanticCard = () => {
 export default function UiFrameworkPage() {
   return (
     <>
-      <div>a</div>
       <div
         style={{
           display: "grid",
@@ -281,7 +287,6 @@ export default function UiFrameworkPage() {
         {ChakraCard()}
         {SemanticCard()}
       </div>
-      <div>b</div>
     </>
   );
 }
