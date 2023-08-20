@@ -90,7 +90,10 @@ const BluePrintCard = () => {
 
         <p>Sample Text</p>
         <div>
-          <a href="https://blueprintjs.com/docs/#core/components/card">
+          <a
+            href="https://blueprintjs.com/docs/#core/components/card"
+            target="_blank"
+            rel="noreferrer">
             Documentação
           </a>
         </div>
@@ -135,7 +138,12 @@ const MUICard = () => {
             <br />
             {'"a benevolent smile"'}
             <div></div>
-            <a href="https://mui.com/material-ui/react-card/">Documentação</a>
+            <a
+              href="https://mui.com/material-ui/react-card/"
+              target="_blank"
+              rel="noreferrer">
+              Documentação
+            </a>
           </MTypography>
         </MCardContent>
         <MCardActions>
@@ -161,7 +169,10 @@ const BootStrapCard = () => {
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
             <div></div>
-            <a href="https://react-bootstrap.netlify.app/docs/components/cards">
+            <a
+              href="https://react-bootstrap.netlify.app/docs/components/cards"
+              target="_blank"
+              rel="noreferrer">
               Documentação
             </a>
           </BSCard.Text>
@@ -188,7 +199,12 @@ const AntDCard = () => {
             width: 300,
           }}>
           <p>Card content</p>
-          <a href="https://ant.design/components/card#">Documentação</a>
+          <a
+            href="https://ant.design/components/card#"
+            target="_blank"
+            rel="noreferrer">
+            Documentação
+          </a>
         </ACard>
       </ASpace>
     </div>
@@ -216,7 +232,10 @@ const ChakraCard = () => {
               <CText color="blue.600" fontSize="2xl">
                 $450
               </CText>
-              <a href="https://chakra-ui.com/docs/components/card/usage">
+              <a
+                href="https://chakra-ui.com/docs/components/card/usage"
+                target="_blank"
+                rel="noreferrer">
                 Documentação
               </a>
             </CStack>
@@ -255,7 +274,10 @@ const SemanticCard = () => {
           <SCard.Description>
             Matthew is a musician living in Nashville.
             <div>
-              <a href="https://react.semantic-ui.com/views/card/#types-card">
+              <a
+                href="https://react.semantic-ui.com/views/card/#types-card"
+                target="_blank"
+                rel="noreferrer">
                 Documentação
               </a>
             </div>
