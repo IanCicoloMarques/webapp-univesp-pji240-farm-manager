@@ -81,4 +81,6 @@ export default function GridPage() {
 }
 
 /* Um ponto legal de se observar é que esse componente do MUI é 100% responsivo, ou seja,
-ele se adapta a tela do usuario. Tente diminuir e aumentar o tamanho da tela para ver a mágica acontecendo */
+ele se adapta a tela do usuario, não só no tamanho dos elementos, mas também
+na quantidade de itens por coluna.
+Tente diminuir e aumentar o tamanho da tela para ver a mágica acontecendo. */

@@ -25,6 +25,10 @@ export default function NavHeader() {
     <div
       style={{
         border: "solid red 5px",
+        height: "10vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}>
       <div>EU SOU O NAVHEADER</div>
     </div>
