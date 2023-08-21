@@ -1,45 +1,48 @@
-import { useMemo, useEffect, useState } from 'react';
-import { MaterialReactTable } from 'material-react-table';
+import { useMemo, useEffect, useState } from "react";
+import { MaterialReactTable } from "material-react-table";
 import axios from "axios";
 
-export default function CustomerSearchPage(){
+export default function CustomerSearchPage() {
+  const [customers, setCustomers] = useState([]);
 
-    const [ customers, setCustomers ] = useState([]);
+  useEffect(() => {
+    const agent = new https.Agent({
+      rejectUnauthorized: false,
+    });
+    const request = axios.get(
+      `${process.env.REACT_APP_BACKEND_URI}/customer/GetCustomerList`,
+      { httpsAgent: agent }
+    );
+    request
+      .then((response) => {
+        setCustomers(response.data);
+        console.log(customers);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
-    useEffect(() => {
-        const url = `${process.env.REACT_APP_BACKEND_URI}/customer/GetCustomerList`
-        const request = axios.get(`${process.env.REACT_APP_BACKEND_URI}/customer/GetCustomerList`);
-        request.then((response) => {
-          setCustomers(response.data);
-          console.log(customers)
-        })
-        .catch((e) => {
-            console.log(e);
-        })
-      }, [])
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "name",
+        header: "Nome",
+        size: 150,
+      },
+      {
+        accessorKey: "address",
+        header: "Endereço",
+        size: 200,
+      },
+      {
+        accessorKey: "phone",
+        header: "Telefone",
+        size: 150,
+      },
+    ],
+    []
+  );
 
-
-    const columns = useMemo(
-        () => [
-          {
-            accessorKey: 'name', 
-            header: 'Nome',
-            size: 150,
-          },
-          {
-            accessorKey: 'address',
-            header: 'Endereço',
-            size: 200,
-          },
-          {
-            accessorKey: 'phone',
-            header: 'Telefone',
-            size: 150,
-          },
-        ],
-        [],
-      );
-    
-    return <MaterialReactTable columns={columns} data={customers} />;
-
+  return <MaterialReactTable columns={columns} data={customers} />;
 }
