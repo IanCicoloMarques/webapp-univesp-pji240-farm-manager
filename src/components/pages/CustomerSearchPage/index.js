@@ -1,6 +1,7 @@
 import { useMemo, useEffect, useState } from "react";
-import { MaterialReactTable } from "material-react-table";
 import axios from "axios";
+import BootstrapTable from "react-bootstrap-table-next";
+import { Button } from "react-bootstrap";
 
 export default function CustomerSearchPage() {
   const [customers, setCustomers] = useState([]);
@@ -20,26 +21,88 @@ export default function CustomerSearchPage() {
       });
   }, []);
 
+  const removeCustomer = (row) => {
+    console.log("row", row);
+    const request = axios.delete(
+      `${process.env.REACT_APP_BACKEND_URI}/customer/` + row.id
+    );
+
+    request
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const removeButton = (cell, row, rowIndex, formatExtraData) => {
+    return (
+      <Button
+        onClick={() => {
+          removeCustomer(row);
+        }}>
+        Remover
+      </Button>
+    );
+  };
+
   const columns = useMemo(
     () => [
       {
-        accessorKey: "name",
-        header: "Nome",
+        dataField: "firstName",
+        text: "Nome",
         size: 150,
       },
       {
-        accessorKey: "address",
-        header: "Endereço",
+        dataField: "lastName",
+        text: "Sobrenome",
+        size: 150,
+      },
+      {
+        dataField: "address1",
+        text: "Endereço",
         size: 200,
       },
       {
-        accessorKey: "phone",
-        header: "Telefone",
+        dataField: "address3",
+        text: "Complemento",
+        size: 200,
+      },
+      {
+        dataField: "address2",
+        text: "CEP",
+        size: 200,
+      },
+      {
+        dataField: "phone",
+        text: "Telefone",
         size: 150,
+      },
+      {
+        dataField: "email",
+        text: "E-Mail",
+        size: 200,
+      },
+      {
+        dataField: "delete",
+        text: "Remover",
+        formatter: removeButton,
+        sort: true,
       },
     ],
     []
   );
 
-  return <MaterialReactTable columns={columns} data={customers} />;
+  return (
+    <div className="App">
+      <BootstrapTable
+        bootstrap4
+        keyField="id"
+        data={customers}
+        columns={columns}
+      />
+    </div>
+  );
 }
