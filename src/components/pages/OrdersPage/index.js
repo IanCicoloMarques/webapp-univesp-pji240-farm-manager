@@ -20,7 +20,7 @@ export default function OrdersPage() {
   }, []);
 
   const formatBoolean = (cell, row, rowIndex, formatExtraData) => {
-    return <>{row == 0 ? "Sim" : "Não"}</>;
+    return <>{row === 0 ? "Sim" : "Não"}</>;
   };
 
   const formatList = (cell, row, rowIndex, formatExtraData) => {
