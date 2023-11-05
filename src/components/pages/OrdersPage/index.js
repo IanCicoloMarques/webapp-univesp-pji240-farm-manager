@@ -3,6 +3,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import axios from "axios";
 
 import dateFormat from "dateformat";
+import OrderCard from "../../OrderCard";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -12,11 +13,9 @@ export default function OrdersPage() {
     request
       .then((response) => {
         setOrders(response.data);
-        console.log("posapi", orders);
+        console.log("o", orders);
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
   }, []);
 
   const formatBoolean = (cell, row, rowIndex, formatExtraData) => {
@@ -37,7 +36,7 @@ export default function OrdersPage() {
     );
   };
 
-  const formatTotal = (cell, row, rowIndex, formatExtraData) => {
+  const formatTotal = (cell) => {
     var total = 0;
     cell.map((p) => {
       total += p.amount * p.price;
@@ -80,13 +79,29 @@ export default function OrdersPage() {
   );
 
   return (
-    <div className="App">
-      <BootstrapTable
-        bootstrap4
-        keyField="id"
-        data={orders}
-        columns={columns}
-      />
+    <div class="max-w-7xl mx-auto p-6 ">
+      {console.log("o2", orders)}
+      {orders.map((order, index) => (
+        <OrderCard
+          id={order.orderId}
+          products={order.productList}
+          isPaid={order.isPaid}
+          customerName={order.customerName}
+          totalAmount={formatTotal(order.productList)}
+        />
+      ))}
     </div>
   );
 }
+
+// {orders.map((o, index) => {
+//   console.log("o2", o);
+//   <OrderCard
+//     id={55}
+//     products={[]}
+//     totalAmount={75}
+//     orderStatus={"Aprovado"}
+//     customerName={"Maria"}
+//     fullAddress={"Rua Larga, 15"}
+//   />;
+// })}

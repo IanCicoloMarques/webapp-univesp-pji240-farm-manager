@@ -32,14 +32,10 @@ const registerCustomer = (event) => {
     )
     .then(function (response) {
       //handle success
-      console.log(response);
     })
     .catch(function (response) {
       //handle error
-      console.log(response);
     });
-
-  console.log(data);
 };
 
 export default function CustomerRegisterPage() {

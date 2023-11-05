@@ -51,14 +51,12 @@ export default function AddOrderPage() {
       }
     });
 
-    console.log("pl", productList);
     const obj = {
       customerId: selectedCustomer.id,
       productList: productList,
     };
 
     var json = JSON.stringify(obj);
-    console.log(json);
 
     axios
       .post(`${process.env.REACT_APP_BACKEND_URI}/orders/AddOrder`, json, {
@@ -69,11 +67,9 @@ export default function AddOrderPage() {
       })
       .then(function (response) {
         //handle success
-        console.log(response);
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
       });
   }
 

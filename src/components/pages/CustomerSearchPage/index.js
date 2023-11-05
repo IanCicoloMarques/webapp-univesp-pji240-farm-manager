@@ -1,10 +1,12 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect, useContext } from "react";
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Button } from "react-bootstrap";
 
+import CustomersContext from "../../../contexts/CustomersContext";
+
 export default function CustomerSearchPage() {
-  const [customers, setCustomers] = useState([]);
+  const { customers, setCustomers } = useContext(CustomersContext);
 
   useEffect(() => {
     const request = axios.get(
@@ -14,27 +16,32 @@ export default function CustomerSearchPage() {
     request
       .then((response) => {
         setCustomers(response.data);
-        console.log(customers);
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
   }, []);
 
+  const updateCustometList = () => {
+    const request = axios.get(
+      `${process.env.REACT_APP_BACKEND_URI}/customer/GetCustomerList`,
+      { rejectUnauthorized: false }
+    );
+    request
+      .then((response) => {
+        setCustomers(response.data);
+      })
+      .catch((e) => {});
+  };
+
   const removeCustomer = (row) => {
-    console.log("row", row);
     const request = axios.delete(
       `${process.env.REACT_APP_BACKEND_URI}/customer/` + row.id
     );
 
     request
       .then((response) => {
-        console.log(response);
-        window.location.reload();
+        updateCustometList();
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
   };
 
   const removeButton = (cell, row, rowIndex, formatExtraData) => {

@@ -1,6 +1,6 @@
 //HOOKS
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -13,6 +13,7 @@ import CustomerSearchPage from "../pages/CustomerSearchPage";
 import NextDeliveryPage from "../pages/NextDeliveryPage";
 import OrdersPage from "../pages/OrdersPage";
 import AddOrderPage from "../pages/AddOrderPage";
+import LoginPage from "../pages/LoginPage";
 import Footer from "../Footer";
 
 // CONTEXTS
@@ -109,6 +110,7 @@ function App() {
                           path="/next-delivery"
                           element={<NextDeliveryPage />}
                         />
+                        <Route path="/login" element={<LoginPage />} />
                       </Routes>
                     </div>
                     <Footer />

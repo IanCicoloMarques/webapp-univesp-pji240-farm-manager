@@ -37,10 +37,11 @@ export default function HomePage() {
         <header className="relative  w-full h-1/4 py-10 px-6 lg:py-20">
           <div className="max-w-3xl mx-auto text-center">
             <p className="mb-2 text-3xl lg:text-5 text-white font-bold">
-              Sítio Nova Esperança
+              Sítio Nova Esperança - ADICIONAR DEMONSTRAÇÃO DA ACESSIBILIDADE NO
+              VÍDEO
             </p>
             <p className="mb-8 text-white">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit
+              ADICIONAR DEMONSTRAÇÃO DA ACESSIBILIDADE NO VÍDEO
             </p>
           </div>
         </header>
