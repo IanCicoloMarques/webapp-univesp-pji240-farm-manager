@@ -37,11 +37,12 @@ export default function HomePage() {
         <header className="relative  w-full h-1/4 py-10 px-6 lg:py-20">
           <div className="max-w-3xl mx-auto text-center">
             <p className="mb-2 text-3xl lg:text-5 text-white font-bold">
-              Sítio Nova Esperança - ADICIONAR DEMONSTRAÇÃO DA ACESSIBILIDADE NO
-              VÍDEO
+              Sítio Nova Esperança
             </p>
             <p className="mb-8 text-white">
-              ADICIONAR DEMONSTRAÇÃO DA ACESSIBILIDADE NO VÍDEO
+              Explore nosso sítio repleto de alimentos cultivados com paixão e
+              respeito pela natureza. Conheça um mundo de sabores autênticos e
+              nutritivos.
             </p>
           </div>
         </header>

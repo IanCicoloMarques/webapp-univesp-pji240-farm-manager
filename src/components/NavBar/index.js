@@ -40,14 +40,14 @@ export default function NavBar() {
               Pedidos Em Aberto
             </button>
           </li>
-          <li>
+          {/* <li>
             <button
               onClick={() => navigate("/next-delivery")}
               href=""
               className="py-4 text-lg font-semibold text-gray-500 hover:text-emerald-800">
               Entregas Agendadas
             </button>
-          </li>
+          </li> */}
           <li>
             <button
               onClick={() => navigate("/customer-list")}

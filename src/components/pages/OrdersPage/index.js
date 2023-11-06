@@ -88,6 +88,10 @@ export default function OrdersPage() {
           isPaid={order.isPaid}
           customerName={order.customerName}
           totalAmount={formatTotal(order.productList)}
+          fullAddress={order.fullAddress}
+          estimatedDelivery={order.estimatedDelivery}
+          orderDate={order.orderedAt}
+          orderStatus={order.statusDescription}
         />
       ))}
     </div>
