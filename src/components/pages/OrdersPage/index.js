@@ -3,24 +3,24 @@ import BootstrapTable from "react-bootstrap-table-next";
 import axios from "axios";
 
 import dateFormat from "dateformat";
+import OrderCard from "../../OrderCard";
+import { setRef } from "@mui/material";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const request = axios.get(`${process.env.REACT_APP_BACKEND_URI}/orders`);
     request
       .then((response) => {
         setOrders(response.data);
-        console.log("posapi", orders);
       })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+      .catch((e) => {});
+  }, [refresh]);
 
   const formatBoolean = (cell, row, rowIndex, formatExtraData) => {
-    return <>{row == 0 ? "Sim" : "Não"}</>;
+    return <>{row === 0 ? "Sim" : "Não"}</>;
   };
 
   const formatList = (cell, row, rowIndex, formatExtraData) => {
@@ -37,7 +37,7 @@ export default function OrdersPage() {
     );
   };
 
-  const formatTotal = (cell, row, rowIndex, formatExtraData) => {
+  const formatTotal = (cell) => {
     var total = 0;
     cell.map((p) => {
       total += p.amount * p.price;
@@ -79,14 +79,26 @@ export default function OrdersPage() {
     []
   );
 
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   return (
-    <div className="App">
-      <BootstrapTable
-        bootstrap4
-        keyField="id"
-        data={orders}
-        columns={columns}
-      />
+    <div class="max-w-7xl mx-auto p-6 ">
+      {orders.map((order, index) => (
+        <OrderCard
+          id={order.orderId}
+          products={order.productList}
+          isPaid={order.isPaid}
+          customerName={order.customerName}
+          totalAmount={formatTotal(order.productList)}
+          fullAddress={order.fullAddress}
+          estimatedDelivery={order.estimatedDelivery}
+          orderDate={order.orderedAt}
+          orderStatus={order.statusDescription}
+          handleRefresh={handleRefresh}
+        />
+      ))}
     </div>
   );
 }
