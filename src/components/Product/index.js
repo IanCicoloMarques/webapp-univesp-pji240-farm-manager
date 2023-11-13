@@ -1,26 +1,43 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Button, Container } from "react-bootstrap";
+
+import CartContext from "../../contexts/cartContext";
 
 export default function Product(props) {
-  const { id, name, price, image, setSelected, index } = props;
-  const [counter, setCounter] = useState(0);
+  const { productId, name, price, image, setSelected, index } = props;
+  const {
+    cart,
+    setCart,
+    addProductToCart,
+    removeProductFromCart,
+    updateProductOnCart,
+  } = useContext(CartContext);
+  const [counter, setCounter] = useState(initialCounter);
+
+  function initialCounter() {
+    let result = 0;
+    const cartItem = cart.find((x) => x.productId === productId);
+    cartItem ? (result = cartItem.amount) : (result = 0);
+    return result;
+  }
 
   function handleProductAdd() {
-    if (counter === 0) {
+    if (counter == 0) {
       setCounter(counter + 1);
-      setSelected(index, counter);
+      addProductToCart({ ...props });
     } else {
+      updateProductOnCart(productId, counter + 1);
       setCounter(counter + 1);
-      setSelected(index, counter);
     }
   }
 
   function handleProductSubtract() {
-    if (counter === 1) {
+    if (counter == 1) {
+      removeProductFromCart(productId);
       setCounter(0);
-      setSelected(index, counter);
     } else if (counter > 1) {
+      updateProductOnCart(productId, counter - 1);
       setCounter(counter - 1);
-      setSelected(index, counter);
     }
   }
 
@@ -33,6 +50,19 @@ export default function Product(props) {
         </a>
         <p className="text-lg font-bold text-gray-900">R${price.toFixed(2)}</p>
         <div className="mt-4"></div>
+        <Container style={{ display: "flex", justifyContent: "space-between" }}>
+          <Button
+            style={{ fontSize: "large", color: "black" }}
+            onClick={handleProductSubtract}>
+            -
+          </Button>
+          {counter}
+          <Button
+            style={{ fontSize: "large", color: "black" }}
+            onClick={handleProductAdd}>
+            +
+          </Button>
+        </Container>
       </div>
     </div>
   );

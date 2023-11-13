@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useContext } from "react";
 import axios from "axios";
 import BootstrapTable from "react-bootstrap-table-next";
-import { Button } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 
 import CustomersContext from "../../../contexts/CustomersContext";
 
@@ -47,6 +47,7 @@ export default function CustomerSearchPage() {
   const removeButton = (cell, row, rowIndex, formatExtraData) => {
     return (
       <Button
+        variant="outline-danger"
         onClick={() => {
           removeCustomer(row);
         }}>
@@ -103,13 +104,13 @@ export default function CustomerSearchPage() {
   );
 
   return (
-    <div className="App">
+    <Stack style={{ padding: 10 }}>
       <BootstrapTable
         bootstrap4
         keyField="id"
         data={customers}
         columns={columns}
       />
-    </div>
+    </Stack>
   );
 }

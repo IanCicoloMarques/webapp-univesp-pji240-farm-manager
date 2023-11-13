@@ -4,19 +4,20 @@ import axios from "axios";
 
 import dateFormat from "dateformat";
 import OrderCard from "../../OrderCard";
+import { setRef } from "@mui/material";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const request = axios.get(`${process.env.REACT_APP_BACKEND_URI}/orders`);
     request
       .then((response) => {
         setOrders(response.data);
-        console.log("o", orders);
       })
       .catch((e) => {});
-  }, []);
+  }, [refresh]);
 
   const formatBoolean = (cell, row, rowIndex, formatExtraData) => {
     return <>{row === 0 ? "Sim" : "Não"}</>;
@@ -78,9 +79,12 @@ export default function OrdersPage() {
     []
   );
 
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   return (
     <div class="max-w-7xl mx-auto p-6 ">
-      {console.log("o2", orders)}
       {orders.map((order, index) => (
         <OrderCard
           id={order.orderId}
@@ -92,20 +96,9 @@ export default function OrdersPage() {
           estimatedDelivery={order.estimatedDelivery}
           orderDate={order.orderedAt}
           orderStatus={order.statusDescription}
+          handleRefresh={handleRefresh}
         />
       ))}
     </div>
   );
 }
-
-// {orders.map((o, index) => {
-//   console.log("o2", o);
-//   <OrderCard
-//     id={55}
-//     products={[]}
-//     totalAmount={75}
-//     orderStatus={"Aprovado"}
-//     customerName={"Maria"}
-//     fullAddress={"Rua Larga, 15"}
-//   />;
-// })}

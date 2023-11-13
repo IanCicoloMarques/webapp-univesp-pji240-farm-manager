@@ -53,7 +53,7 @@ export default function NavBar() {
               onClick={() => navigate("/customer-list")}
               href=""
               className="py-4 text-lg font-semibold text-gray-500 hover:text-emerald-800">
-              Procurar Cliente
+              Lista de Clientes
             </button>
           </li>
           <li>

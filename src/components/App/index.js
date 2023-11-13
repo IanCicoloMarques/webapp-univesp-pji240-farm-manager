@@ -62,15 +62,15 @@ function App() {
     setCart([...cart, item]);
   }
 
-  function removeProductFromCart(id) {
-    const auxCart = cart.filter((cart) => id != cart.id);
+  function removeProductFromCart(productId) {
+    const auxCart = cart.filter((cart) => productId != cart.productId);
     setCart(auxCart);
   }
 
-  function updateProductOnCart(id, value) {
+  function updateProductOnCart(productId, value) {
     const auxCart = [...cart];
 
-    const index = auxCart.findIndex((item) => item.id == id);
+    const index = auxCart.findIndex((item) => item.productId == productId);
     auxCart[index].amount = value;
 
     setCart([...auxCart]);

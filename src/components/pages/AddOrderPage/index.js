@@ -1,22 +1,28 @@
 import axios from "axios";
 import { useEffect, useContext, useState } from "react";
 import Product from "../../Product";
-import Select from "react-select";
-import { Container } from "react-bootstrap";
+import { Button, Modal, Stack, Form } from "react-bootstrap";
 import CategoryContext from "../../../contexts/categoryContext";
 import ProductsContext from "../../../contexts/productsContext";
 import CustomersContext from "../../../contexts/CustomersContext";
+import CartContext from "../../../contexts/cartContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import CustomerListSearch from "../../CustomerListSearch";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function AddOrderPage() {
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
   const { customers } = useContext(CustomersContext);
+  const { cart, setCart } = useContext(CartContext);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryQuery, setCategoryQuery] = useState("");
-  const [selectedCustomer, setSelectedCustomer] = useState({});
-
+  const [selectedCustomer, setSelectedCustomer] = useState();
+  const [show, setShow] = useState(false);
+  const [paid, setPaid] = useState(false);
   const [productFilter, setProductFilter] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setProductFilter(
@@ -37,41 +43,6 @@ export default function AddOrderPage() {
   const handleCategory = (event) => {
     setCategoryQuery(event);
   };
-
-  const setSelected = (index, counter) => {
-    products[index].selected = counter;
-  };
-
-  function saveOrder() {
-    var productList = [];
-    products.map((p) => {
-      if (p.selected > 0) {
-        p.amount = p.selected;
-        productList.push(p);
-      }
-    });
-
-    const obj = {
-      customerId: selectedCustomer.id,
-      productList: productList,
-    };
-
-    var json = JSON.stringify(obj);
-
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URI}/orders/AddOrder`, json, {
-        headers: {
-          // Overwrite Axios's automatically set Content-Type
-          "Content-Type": "application/json",
-        },
-      })
-      .then(function (response) {
-        //handle success
-      })
-      .catch(function (response) {
-        //handle error
-      });
-  }
 
   const DisplayCategory = (category) => {
     return (
@@ -99,10 +70,21 @@ export default function AddOrderPage() {
     );
   };
 
+  const handleOrder = () => {
+    setShow(true);
+  };
+
   const DisplaySideMenu = () => {
     return (
       <div className="ml-10 flex flex-wrap items-start py-6 px-6 xl:px-0">
         <div className="filters w-full">
+          <Button
+            variant="outline-success"
+            size="lg"
+            onClick={handleOrder}
+            disabled={cart.length < 1}>
+            Realizar Pedido
+          </Button>
           <h3 className="mb-3 text-xl uppercase font-bold text-gray-900">
             Buscar
           </h3>
@@ -137,7 +119,7 @@ export default function AddOrderPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {productFilter.map((product) => (
             <Product
-              id={product.id}
+              productId={product.productId}
               name={product.name}
               price={product.price}
               image={product.image}
@@ -145,6 +127,143 @@ export default function AddOrderPage() {
             />
           ))}
         </div>
+      </div>
+    );
+  };
+
+  const RenderList = () => {
+    return (
+      <div class="mb-6 w-full">
+        {cart.map((cartProduct, index) => (
+          <div class="product mb-6 flex pr-6 w-full">
+            <div class="w-1/8 ">
+              <img
+                class="h-12 w-12 object-cover hover:shadow-lg rounded-xl"
+                src={cartProduct.image}
+              />
+            </div>
+
+            <div class="w-7/8 pl-6 w-full">
+              <div
+                class="flex justify-between"
+                style={{ display: "inline-grid" }}>
+                {cartProduct.amount} x {cartProduct.name}
+                <p class="mb-6 pt-1 text-gray-600">
+                  R${(cartProduct.price * cartProduct.amount).toFixed(2)}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const ShowPayment = () => {
+    return (
+      <Stack style={{ alignItems: "center" }} h>
+        <Form.Check
+          reverse
+          type="radio"
+          id="radio-paid"
+          label="Pago"
+          name="isPaid"
+          onChange={() => setPaid(true)}
+        />
+        <Form.Check
+          defaultChecked
+          reverse
+          label="Não Pago"
+          name="isPaid"
+          type="radio"
+          id="radio-paid-2"
+          onChange={() => setPaid(false)}
+        />
+      </Stack>
+    );
+  };
+
+  const handleSelectCustomer = (customer) => {
+    setSelectedCustomer(customer);
+  };
+
+  const handleConfirm = () => {
+    var customer = customers.find((c) => c.id === selectedCustomer);
+    var products = cart;
+    console.log(cart);
+    var data = {
+      customerId: selectedCustomer,
+      productList: cart,
+      isPaid: paid,
+      orderedAt: "",
+      fullAddress: "",
+      customerName: "",
+      estimatedDelivery: "",
+      statusDescription: "",
+    };
+
+    console.log("data", data);
+
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URI}/orders/AddOrder`, data)
+      .then(function (response) {
+        setShow(false);
+        setCart([]);
+        navigate("/order-list");
+      })
+      .catch(function (response) {
+        //handle error
+      });
+  };
+
+  const ShowConfirmButton = () => {
+    if (selectedCustomer > 0) {
+      return (
+        <Stack>
+          <Button variant="outline-success" onClick={handleConfirm}>
+            Confirmar pedido
+          </Button>
+        </Stack>
+      );
+    } else {
+      return (
+        <Stack>
+          <Button variant="outline-warn">
+            Selecione o Cliente Antes de Continuar
+          </Button>
+        </Stack>
+      );
+    }
+  };
+
+  const GetTotal = () => {
+    var total = 0;
+    cart.map((p) => {
+      total += p.amount * p.price;
+    });
+    return total.toFixed(2);
+  };
+
+  const DisplayModal = () => {
+    return (
+      <div>
+        <Modal show={show} fullscreen onHide={() => setShow(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Realizar Pedido</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Stack gap={2}>
+              {RenderList()}
+              <>Total: RS{GetTotal()}</>
+              <CustomerListSearch handleSelectCustomer={handleSelectCustomer} />
+              {ShowPayment()}
+              {ShowConfirmButton()}
+              <Button variant="outline-danger" onClick={() => setShow(false)}>
+                Cancelar
+              </Button>
+            </Stack>
+          </Modal.Body>
+        </Modal>
       </div>
     );
   };
@@ -157,46 +276,8 @@ export default function AddOrderPage() {
       {DisplaySideMenu()}
 
       {DisplayProducts()}
+
+      {DisplayModal()}
     </div>
-    // <div>
-    //   <Container>
-    //     <h1>
-    //       <b>Fazer Pedido</b>
-    //     </h1>
-    //     <Grid
-    //       container
-    //       spacing={{ xs: 2, md: 3 }}
-    //       columns={{ xs: 4, sm: 8, md: 12 }}>
-    //       {products.map((product, index) => (
-    //         <Grid item xs={2} sm={4} md={4} key={index}>
-    //           <Product
-    //             id={product.id}
-    //             name={product.name}
-    //             price={product.price}
-    //             image={product.image}
-    //             setSelected={setSelected}
-    //             index={index}
-    //           />
-    //         </Grid>
-    //       ))}
-    //     </Grid>
-    //     <h1>
-    //       <b>Selecionar Cliente:</b>
-    //     </h1>
-    //     <Select
-    //       className="basic-single"
-    //       classNamePrefix="select"
-    //       name="color"
-    //       options={customers.map((c, index) => ({
-    //         value: c,
-    //         label: `${c.firstName} ${c.lastName} ${c.phone} ${c.address1}`,
-    //       }))}
-    //       onChange={(e) => {
-    //         setSelectedCustomer(e.value);
-    //       }}
-    //     />
-    //     <Button onClick={saveOrder}>Salvar Pedido</Button>
-    //   </Container>
-    // </div>
   );
 }
